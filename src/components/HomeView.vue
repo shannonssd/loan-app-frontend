@@ -1,8 +1,8 @@
 <template>
   <div>
     All Loans
-    <button>Add New Loan</button>
-    <button>Advanced Search</button>
+    <button @click="goToNewForm">Add New Loan</button>
+    <button @click="goToSearchPage">Advanced Search</button>
   </div>
   <div>
     <span>ID</span>
@@ -13,16 +13,17 @@
     <span>Edit</span>
   </div>
   <div v-for="loan in loanList">
-    <span>{{ loan.id }}</span> {{ " " }} <span>{{ loan.loan_amount }}</span>
-    {{ " " }} <span>{{ loan.loan_term }}</span> {{ " " }}
-    <span>{{ loan.interest_rate }}</span> {{ " " }}
+    <span>{{ loan.id }}</span> {{ " " }}
+    <span>{{ Number(loan.loan_amount).toFixed(2) }} ฿</span>{{ " " }}
+    <span>{{ loan.loan_term }} Years</span> {{ " " }}
+    <span>{{ Number(loan.interest_rate).toFixed(2) }}%</span> {{ " " }}
     <span
       >{{ DateTime.fromISO(loan.created_at).toISODate() }}
       {{ DateTime.fromISO(loan.created_at).toFormat("HH:MM:ss") }}</span
-    >
-    {{ " " }} <span><button>View</button></span> {{ " " }}
-    <span><button>Edit</button></span> {{ " " }}
-    <span><button>Delete</button></span> {{ " " }}
+    >{{ " " }}
+    <span><button @click="goToLoanDetails(loan.id)">View</button></span>
+    {{ " " }} <span><button @click="goToEditForm(loan.id)">Edit</button></span>
+    {{ " " }} <span><button>Delete</button></span> {{ " " }}
   </div>
 </template>
 
@@ -45,9 +46,29 @@ export default {
         console.log(err);
       }
     };
+    const goToNewForm = () => {
+      window.location = "/new-loan/";
+    };
+    const goToEditForm = (id) => {
+      window.location = `/edit-loan/${id}`;
+    };
+    const goToLoanDetails = (id) => {
+      window.location = `/loan-details/${id}`;
+    };
+    const goToSearchPage = () => {
+      window.location = "/advanced-search/";
+    };
 
     getLoanList();
-    return { loanList, getLoanList, DateTime };
+    return {
+      loanList,
+      getLoanList,
+      DateTime,
+      goToNewForm,
+      goToEditForm,
+      goToLoanDetails,
+      goToSearchPage,
+    };
   },
 };
 </script>
