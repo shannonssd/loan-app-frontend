@@ -5,9 +5,9 @@
     <input v-model="loanAmount" placeholder="1000" required /><br />
     <label for="loan-term">Loan Term:</label><br />
     <input v-model="loanTerm" placeholder="1" required /><br />
-    <label for="interest_rate">Interest Rate:</label><br />
+    <label for="interest-rate">Interest Rate:</label><br />
     <input v-model="interestRate" placeholder="1" required /><br />
-    <label for="loan_date">Start Date:</label><br />
+    <label for="loan-date">Start Date:</label><br />
     <select name="month" id="month" v-model="month">
       <option value="01">January</option>
       <option value="02">February</option>
