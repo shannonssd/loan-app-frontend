@@ -1,67 +1,110 @@
 <template>
   <div>Edit Loan</div>
   <form>
-    <label for="loan_amount">Loan Amount:</label><br />
-    <input v-model="loan_amount" placeholder="1000" /><br />
-    <label for="loan_term">Loan Term:</label><br />
-    <input v-model="loan_term" placeholder="1" /><br />
+    <label for="loan-amount">Loan Amount:</label><br />
+    <input v-model="loanAmount" placeholder="1000" required /><br />
+    <label for="loan-term">Loan Term:</label><br />
+    <input v-model="loanTerm" placeholder="1" required /><br />
     <label for="interest_rate">Interest Rate:</label><br />
-    <input v-model="interest_rate" placeholder="1" /><br />
+    <input v-model="interestRate" placeholder="1" required /><br />
     <label for="loan_date">Start Date:</label><br />
-    <select name="month" id="month">
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="April">April</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
+    <select name="month" id="month" v-model="month">
+      <option value="01">January</option>
+      <option value="02">February</option>
+      <option value="03">March</option>
+      <option value="04">April</option>
+      <option value="05">May</option>
+      <option value="06">June</option>
+      <option value="07">July</option>
+      <option value="08">August</option>
+      <option value="09">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
     </select>
-    <select name="year" id="year">
+    <select name="year" id="year" v-model="year">
       <option v-for="year in yearsArr" :value="year">{{ year }}</option>
     </select>
+    <button type="submit" @click="submitForm">Update</button>
   </form>
-  <button>Update</button>
   <button @click="goToHomePage">Back</button>
 </template>
 
 <script>
-// import axios from "axios";
-import { ref } from "vue";
+import axios from "axios";
+import { onMounted, ref } from "vue";
 
 export default {
-  name: "NewLoanView",
+  name: "EditLoanView",
   setup() {
-    // const loanList = ref([]);
-    // const getLoanDetails = async () => {
-    //   try {
-    //     const loanDetailsObj = await axios.get(
-    //       `${process.env.VUE_APP_BACKEND_URL}/loans/`
-    //     );
-    //     loanList.value = loanListObj.data;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // const goToForm = () => {};
+    const loanAmount = ref("");
+    const loanTerm = ref("");
+    const interestRate = ref("");
+    const month = ref("");
+    const year = ref("");
     const yearsArr = [];
-    const populateYears = () => {
+    let id = "";
+    onMounted(async () => {
       for (let i = 2017; i <= 2050; i += 1) {
         yearsArr.push(i);
       }
-    };
+
+      try {
+        let urlParams = window.location;
+        id = urlParams.pathname.split("/").slice(-1)[0];
+        console.log(id);
+        const response = await axios.get(
+          `${process.env.VUE_APP_BACKEND_URL}/loans/get-loan-data/${id}/`
+        );
+        const { loanObject } = response.data;
+        loanAmount.value = Math.trunc(loanObject.loan_amount);
+        loanTerm.value = loanObject.loan_term;
+        interestRate.value = Math.trunc(loanObject.interest_rate);
+        // console.log(DateTime.fromISO(loanObject.).toFormat("MMM yyyy"));
+        // year.value = ;
+        // month.value = ;
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    console.log(id);
 
     const goToHomePage = () => {
       window.location = "/";
     };
 
-    populateYears();
-    return { yearsArr, goToHomePage };
+    const submitForm = async (e) => {
+      e.preventDefault();
+      const data = {
+        loan_amount: loanAmount.value,
+        loan_term: loanTerm.value,
+        interest_rate: interestRate.value,
+        loan_month: month.value,
+        loan_year: year.value,
+      };
+      try {
+        const response = await axios.put(
+          `${process.env.VUE_APP_BACKEND_URL}/loans/${id}/`,
+          data
+        );
+        console.log(response.data);
+        // const id = response.data;
+        window.location = `/loan-details/${id}`;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    return {
+      yearsArr,
+      goToHomePage,
+      submitForm,
+      loanAmount,
+      loanTerm,
+      interestRate,
+      month,
+      year,
+    };
   },
 };
 </script>

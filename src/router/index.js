@@ -26,11 +26,6 @@ const routes = [
     name: 'loan details',
     component: LoanDetailsView
   },
-  {
-    path: '/advanced-search',
-    name: 'advanced search',
-    component: AdvancedSearchView
-  },
 ]
 
 const router = createRouter({

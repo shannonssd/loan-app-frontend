@@ -29,7 +29,7 @@
   </div>
   <div v-for="repayment in repaymentList">
     <span>{{ repayment.payment_no }}</span> {{ " " }}
-    <span>{{ DateTime.fromISO(repayment.date).toISODate() }}</span
+    <span>{{ DateTime.fromISO(repayment.date).toFormat("MMM yyyy") }}</span
     >{{ " " }} <span>{{ Number(repayment.payment_amount).toFixed(2) }}</span>
     <span>{{ Number(repayment.prinicipal).toFixed(2) }}</span>
     {{ " " }} <span>{{ Number(repayment.interest).toFixed(2) }}</span>

@@ -1,27 +1,28 @@
 <template>
-  <div>Advanced Search</div>
-  <form>
-    Loan Amount(THB)<br />
-    <label for="loan_amount_lower">Min:</label><br />
-    <input v-model="loan_amount_lower" placeholder="1000" /><br />
-    <label for="loan_amount_upper">Max:</label><br />
-    <input v-model="loan_amount_upper" placeholder="100000000" /><br />
+  <div id="advanced-search">
+    <div>Advanced Search</div>
+    <form>
+      Loan Amount(THB)<br />
+      <label for="loan_amount_lower">Min:</label><br />
+      <input v-model="loan_amount_lower" placeholder="1000" /><br />
+      <label for="loan_amount_upper">Max:</label><br />
+      <input v-model="loan_amount_upper" placeholder="100000000" /><br />
 
-    Loan Term(Years)<br />
-    <label for="loan_term_lower">Min:</label><br />
-    <input v-model="loan_term_lower" placeholder="1" /><br />
-    <label for="loan_term_upper">Max:</label><br />
-    <input v-model="loan_term_upper" placeholder="50" /><br />
+      Loan Term(Years)<br />
+      <label for="loan_term_lower">Min:</label><br />
+      <input v-model="loan_term_lower" placeholder="1" /><br />
+      <label for="loan_term_upper">Max:</label><br />
+      <input v-model="loan_term_upper" placeholder="50" /><br />
 
-    Interest Rate(%)<br />
-    <label for="interest_rate_lower">Min:</label><br />
-    <input v-model="interest_rate_lower" placeholder="1" /><br />
-    <label for="interest_rate_upper">Max:</label><br />
-    <input v-model="interest_rate_upper" placeholder="100" /><br />
-  </form>
-  <button>Search</button>
-  <button>Reset</button>
-  <button>Close</button>
+      Interest Rate(%)<br />
+      <label for="interest_rate_lower">Min:</label><br />
+      <input v-model="interest_rate_lower" placeholder="1" /><br />
+      <label for="interest_rate_upper">Max:</label><br />
+      <input v-model="interest_rate_upper" placeholder="100" /><br />
+    </form>
+    <button>Search</button>
+    <button>Reset</button>
+  </div>
 </template>
 
 <script>
