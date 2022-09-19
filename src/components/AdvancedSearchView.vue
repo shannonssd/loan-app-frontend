@@ -27,19 +27,21 @@
 
 <script>
 import axios from "axios";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export default {
   name: "NewLoanView",
-  props: ["loanList"],
+  props: { loanList: Array },
   setup(props) {
-    console.log(props);
+    console.log("?Proxy obj??? =", props.loanList);
     const loanAmountLower = ref("");
     const loanAmountUpper = ref("");
     const loanTermLower = ref("");
     const loanTermUpper = ref("");
     const interestRateLower = ref("");
     const interestRateUpper = ref("");
+
+    // watch(props.loanList.value, () => console.log("workin!!!"));
 
     const yearsArr = [];
     const populateYears = () => {
@@ -66,7 +68,7 @@ export default {
           data
         );
         console.log(response.data);
-        props.loanList.value = response.data;
+        // props.loanList.value = response.data;
       } catch (err) {
         console.log(err);
       }

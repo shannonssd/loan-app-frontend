@@ -5,7 +5,7 @@
     <button @click="openSearchView">Advanced Search</button>
   </div>
   <div v-if="showModal">
-    <AdvancedSearchView :loanList="loanList" />
+    <AdvancedSearchView v-model:loanList="loanList" />
   </div>
   <div>
     <span>ID</span>
