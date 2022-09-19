@@ -61,8 +61,8 @@ export default {
         loanTerm.value = loanObject.loan_term;
         interestRate.value = Math.trunc(loanObject.interest_rate);
         // console.log(DateTime.fromISO(loanObject.).toFormat("MMM yyyy"));
-        // year.value = ;
-        // month.value = ;
+        year.value = loanObject.loan_year;
+        month.value = loanObject.loan_month;
       } catch (err) {
         console.log(err);
       }
@@ -75,6 +75,7 @@ export default {
 
     const submitForm = async (e) => {
       e.preventDefault();
+      console.log(typeof month.value, typeof year.value);
       const data = {
         loan_amount: loanAmount.value,
         loan_term: loanTerm.value,
